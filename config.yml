@@ -1,0 +1,7 @@
+DBHOST: localhost
+DBNAME: chatTest
+DBUSERNAME: local
+DBPASSWORD: toor
+PORT: 9999
+DBCONNPARAMS: "sslmode=disable"
+DBPROTOCOL: "postgresql"

@@ -1,0 +1,4 @@
+vendor/
+docker-compose.yml
+docker-shared/
+.realize.yaml

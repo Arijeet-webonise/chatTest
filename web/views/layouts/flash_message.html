@@ -1,0 +1,12 @@
+{{ define "flash" }}
+
+{{ if .Flash }}
+<div class="alert alert-{{ .Flash.Type }} js-active text-center" id="session-alert">
+    <strong>{{ .Flash.Message }}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{{ end }}
+
+{{ end }}
