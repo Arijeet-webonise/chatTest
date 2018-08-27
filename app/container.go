@@ -3,6 +3,7 @@ package app
 import (
 	"github.com/Arijeet-webonise/chatTest/pkg/session"
 	"github.com/Arijeet-webonise/chatTest/pkg/templates"
+	"github.com/azer/logger"
 	"github.com/go-zoo/bone"
 )
 
@@ -11,4 +12,5 @@ type App struct {
 	Router         *bone.Mux
 	TplParser      templates.TplParse
 	SessionManager session.SessionManager
+	Log            *logger.Logger
 }

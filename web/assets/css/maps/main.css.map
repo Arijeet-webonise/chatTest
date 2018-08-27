@@ -1,0 +1,1 @@
+{"version":3,"file":"../main.css","sources":["main.scss"],"sourcesContent":["h1{\n    color: #AF80ED;\n }\n \n h3{\n    color: #DE5E85;\n }\n "],"names":[],"mappings":"AAAA,AAAA,EAAE,AAAA,CACE,KAAK,CAAE,OAAO,CAChB,AAED,AAAA,EAAE,AAAA,CACC,KAAK,CAAE,OAAO,CAChB"}

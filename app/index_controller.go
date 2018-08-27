@@ -2,7 +2,6 @@ package app
 
 import (
 	"io"
-	"log"
 	"net/http"
 )
 
@@ -14,7 +13,9 @@ func (app *App) RenderIndex(w http.ResponseWriter, r *http.Request) {
 
 	res, err := app.TplParser.ParseTemplate(tplList, nil)
 	if err != nil {
-		log.Panicln(err)
+		app.Log.Error("%v", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 
 	io.WriteString(w, res)

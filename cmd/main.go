@@ -9,6 +9,7 @@ import (
 	"github.com/Arijeet-webonise/chatTest/pkg/database"
 	"github.com/Arijeet-webonise/chatTest/pkg/session"
 	"github.com/Arijeet-webonise/chatTest/pkg/templates"
+	"github.com/azer/logger"
 	"github.com/go-zoo/bone"
 )
 
@@ -41,9 +42,11 @@ func main() {
 		Router:         bone.New(),
 		TplParser:      &templates.TemplateParser{},
 		SessionManager: sessionManager,
+		Log:            logger.New("chatTest"),
 	}
 
 	a.InitRoute()
+	a.Log.Error("gdh;lh")
 
 	if err := http.ListenAndServe(cfg.GetPort(), a.Router); err != nil {
 		panic(err)
