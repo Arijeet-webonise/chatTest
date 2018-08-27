@@ -9,13 +9,21 @@ import (
 
 // Config data
 type Config struct {
-	DBHost       string `yaml:"DBHOST"`
-	DBName       string `yaml:"DBNAME"`
-	DBUsername   string `yaml:"DBUSERNAME"`
-	DBPassword   string `yaml:"DBPASSWORD"`
-	Port         int    `yaml:"PORT"`
-	DBConnParams string `yaml:"DBCONNPARAMS"`
-	DBProtocol   string `yaml:"DBPROTOCOL"`
+	DBHost             string `yaml:"DBHOST"`
+	DBName             string `yaml:"DBNAME"`
+	DBUsername         string `yaml:"DBUSERNAME"`
+	DBPassword         string `yaml:"DBPASSWORD"`
+	Port               int    `yaml:"PORT"`
+	DBConnParams       string `yaml:"DBCONNPARAMS"`
+	DBProtocol         string `yaml:"DBPROTOCOL"`
+	SessionSecretKey   string `yaml:"SESSIONSECRETKET"`
+	AwsAccessKeyID     string `yaml:"AWSACCESSKEYID"`
+	AwsAccessSecretKey string `yaml:"AWSSECRETACCESSKEY"`
+	AwsBucket          string `yaml:"AWSBUCKET"`
+	AwsEndPointURL     string `yaml:"AWSENDPOINTURL"`
+	AwsRegion          string `yaml:"AWSREGION"`
+	CSRFSecretKey      string `yaml:"CSRFSECRETKEY"`
+	CSRFSecure         bool   `yaml:"CSRFSECURE"`
 }
 
 // GetPort return port for Server

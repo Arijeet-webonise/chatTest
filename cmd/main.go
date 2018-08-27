@@ -7,10 +7,12 @@ import (
 	"github.com/Arijeet-webonise/chatTest/app"
 	"github.com/Arijeet-webonise/chatTest/app/config"
 	"github.com/Arijeet-webonise/chatTest/pkg/database"
+	"github.com/Arijeet-webonise/chatTest/pkg/logger"
 	"github.com/Arijeet-webonise/chatTest/pkg/session"
+	"github.com/Arijeet-webonise/chatTest/pkg/storage"
 	"github.com/Arijeet-webonise/chatTest/pkg/templates"
-	"github.com/azer/logger"
 	"github.com/go-zoo/bone"
+	"github.com/gorilla/csrf"
 )
 
 func main() {
@@ -33,22 +35,31 @@ func main() {
 		panic(errors.New("could not initialise the DB"))
 	}
 
-	sessionManager, err := session.CreateSessionManager("hiuh")
+	sessionManager, err := session.CreateSessionManager(cfg.SessionSecretKey)
 	if err != nil {
 		panic(err)
 	}
+
+	log := &logger.RealLogger{}
+	log.Initialise()
 
 	a := &app.App{
 		Router:         bone.New(),
 		TplParser:      &templates.TemplateParser{},
 		SessionManager: sessionManager,
-		Log:            logger.New("chatTest"),
+		Log:            log,
+		StorageManager: &storage.StorageManagerServiceImpl{
+			AccessKey: cfg.AwsAccessKeyID,
+			SecretKey: cfg.AwsAccessSecretKey,
+			Bucket:    cfg.AwsBucket,
+			Endpoint:  cfg.AwsEndPointURL,
+			Region:    cfg.AwsRegion,
+		},
 	}
-
+	CSRF := csrf.Protect([]byte(cfg.CSRFSecretKey), csrf.Secure(cfg.CSRFSecure))
 	a.InitRoute()
-	a.Log.Error("gdh;lh")
 
-	if err := http.ListenAndServe(cfg.GetPort(), a.Router); err != nil {
+	if err := http.ListenAndServe(cfg.GetPort(), CSRF(a.Router)); err != nil {
 		panic(err)
 	}
 }
