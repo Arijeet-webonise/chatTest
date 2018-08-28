@@ -6,8 +6,10 @@ import (
 
 	"github.com/Arijeet-webonise/chatTest/app"
 	"github.com/Arijeet-webonise/chatTest/app/config"
+	"github.com/Arijeet-webonise/chatTest/app/models"
 	"github.com/Arijeet-webonise/chatTest/pkg/database"
 	"github.com/Arijeet-webonise/chatTest/pkg/logger"
+	"github.com/Arijeet-webonise/chatTest/pkg/redis"
 	"github.com/Arijeet-webonise/chatTest/pkg/session"
 	"github.com/Arijeet-webonise/chatTest/pkg/storage"
 	"github.com/Arijeet-webonise/chatTest/pkg/templates"
@@ -42,7 +44,11 @@ func main() {
 
 	log := &logger.RealLogger{}
 	log.Initialise()
-
+	redisService, pong, err := redis.InitRedis("localhost:6379", "", 0)
+	if err != nil {
+		panic(err)
+	}
+	log.Info(pong)
 	a := &app.App{
 		Router:         bone.New(),
 		TplParser:      &templates.TemplateParser{},
@@ -55,6 +61,9 @@ func main() {
 			Endpoint:  cfg.AwsEndPointURL,
 			Region:    cfg.AwsRegion,
 		},
+		RedisService:            redisService,
+		UserService:             &models.PortalUserServiceImpl{DB: dbConn},
+		CustomPortalUserService: &models.CustomPortalUserImpl{DB: dbConn},
 	}
 	CSRF := csrf.Protect([]byte(cfg.CSRFSecretKey), csrf.Secure(cfg.CSRFSecure))
 	a.InitRoute()

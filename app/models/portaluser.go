@@ -219,3 +219,29 @@ func PortalUserByID(db XODB, id int) (*PortalUser, error) {
 
 	return &pu, nil
 }
+
+// PortalUserByEmailID retrieves a row from 'public.portal_user' as a PortalUser.
+//
+// Generated from index 'unq_ename'.
+func PortalUserByEmailID(db XODB, emailID string) (*PortalUser, error) {
+	var err error
+
+	// sql query
+	const sqlstr = `SELECT ` +
+		`id, first_name, last_name, email_id, password, role, modified_at, created_at ` +
+		`FROM public.portal_user ` +
+		`WHERE email_id = $1`
+
+	// run query
+	XOLog(sqlstr, emailID)
+	pu := PortalUser{
+		_exists: true,
+	}
+
+	err = db.QueryRow(sqlstr, emailID).Scan(&pu.ID, &pu.FirstName, &pu.LastName, &pu.EmailID, &pu.Password, &pu.Role, &pu.ModifiedAt, &pu.CreatedAt)
+	if err != nil {
+		return nil, err
+	}
+
+	return &pu, nil
+}
