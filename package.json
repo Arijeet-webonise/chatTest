@@ -18,11 +18,18 @@
   },
   "homepage": "https://github.com/Arijeet-webonise/chatTest#readme",
   "dependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "browser-sync": "^2.24.7",
+    "fine-uploader": "^5.16.2",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^6.0.0",
+    "gulp-babel": "^8.0.0",
     "gulp-concat": "^2.6.1",
+    "gulp-livereload": "^4.0.0",
     "gulp-postcss": "^8.0.0",
     "gulp-sass": "^4.0.1",
-    "gulp-sourcemaps": "^2.6.4"
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-symlink": "^2.1.4"
   }
 }

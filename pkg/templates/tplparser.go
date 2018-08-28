@@ -31,5 +31,6 @@ func (tp *TemplateParser) ParseTemplate(templateFileName []string, data interfac
 		return parsedTemplate, err
 	}
 	parsedTemplate = buf.String()
+
 	return parsedTemplate, nil
 }

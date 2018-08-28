@@ -24,6 +24,9 @@ type Config struct {
 	AwsRegion          string `yaml:"AWSREGION"`
 	CSRFSecretKey      string `yaml:"CSRFSECRETKEY"`
 	CSRFSecure         bool   `yaml:"CSRFSECURE"`
+	RedisHost          string `yaml:"REDISHOST"`
+	RedisPassword      string `yaml:"REDISPASSWORD"`
+	RedisDB            int    `yaml:"REDISDB"`
 }
 
 // GetPort return port for Server

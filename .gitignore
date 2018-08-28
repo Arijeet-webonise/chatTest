@@ -2,5 +2,6 @@ vendor/
 docker-compose.yml
 docker-shared/
 .realize.yaml
+web/assets/
 node_modules/
 package-lock.json

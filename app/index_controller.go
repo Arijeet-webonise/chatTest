@@ -1,7 +1,6 @@
 package app
 
 import (
-	"io"
 	"net/http"
 
 	"github.com/Arijeet-webonise/chatTest/pkg/framework"
@@ -12,6 +11,7 @@ import (
 func (app *App) RenderIndex(w *framework.Response, r *framework.Request) {
 	tplList := []string{
 		"web/views/base.html",
+		"web/views/menu/NONE.html",
 		"web/views/index.html",
 	}
 	flash, err := app.SessionManager.GetFlash(w.ResponseWriter, r.Request)
@@ -32,5 +32,5 @@ func (app *App) RenderIndex(w *framework.Response, r *framework.Request) {
 		return
 	}
 
-	io.WriteString(w.ResponseWriter, res)
+	w.RenderHTML(res)
 }

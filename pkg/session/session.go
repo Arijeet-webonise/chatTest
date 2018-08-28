@@ -17,7 +17,7 @@ type SessionManager interface {
 	GetValue(r *http.Request, name string) (interface{}, error)
 	DeleteValue(w http.ResponseWriter, r *http.Request) error
 	SetSession(w http.ResponseWriter, r *http.Request, userID int) (string, error)
-	GetSession(r *http.Request, name string) (*User, error)
+	GetSession(r *http.Request) (*User, error)
 	DeleteSession(w http.ResponseWriter, r *http.Request) error
 }
 
@@ -36,7 +36,7 @@ type Flash struct {
 // User wrapper for user session
 type User struct {
 	UUID   string
-	userID int
+	UserID int
 }
 
 // CreateSessionManager create session manager
@@ -129,12 +129,10 @@ func (s *Session) SetSession(w http.ResponseWriter, r *http.Request, userID int)
 
 	gob.Register(&User{})
 
-	UUID, err := uuid.NewV4()
-	if err != nil {
-		return "", err
-	}
+	UUID := uuid.NewV4()
+
 	user := &User{
-		userID: userID,
+		UserID: userID,
 		UUID:   UUID.String(),
 	}
 
@@ -147,13 +145,13 @@ func (s *Session) SetSession(w http.ResponseWriter, r *http.Request, userID int)
 }
 
 // GetSession get value in session
-func (s *Session) GetSession(r *http.Request, name string) (*User, error) {
+func (s *Session) GetSession(r *http.Request) (*User, error) {
 	session, err := s.store.Get(r, s.Project+"_session_user")
 	if err != nil {
 		return nil, err
 	}
 
-	return session.Values[name].(*User), nil
+	return session.Values["user"].(*User), nil
 }
 
 // DeleteSession delete session

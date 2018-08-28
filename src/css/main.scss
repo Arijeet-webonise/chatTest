@@ -1,8 +1,20 @@
 h1{
     color: #AF80ED;
- }
- 
- h3{
+}
+
+h3{
     color: #DE5E85;
- }
- 
+}
+
+.profileImg {
+    width: 100%;
+}
+
+.profile .card-text.title {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.profile .card-text {
+    font-size: 14px;
+}
